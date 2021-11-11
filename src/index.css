@@ -12,10 +12,15 @@ html {
 }
 
 body {
+	overflow-x: hidden;
   	background-color: white;
 	margin: 0;
 }
 
 body::-webkit-scrollbar {
   display: none;
+}
+
+.slick-active {
+	width: auto !important
 }

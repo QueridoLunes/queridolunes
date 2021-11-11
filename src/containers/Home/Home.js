@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import styles from "./Home.module.scss";
 
 import {useDispatch, useSelector} from "react-redux";
-import {setLoading} from '../../store/actions/GeneralActions';
+import {setLoading, getPosts} from '../../store/actions/GeneralActions';
 
 
 import Navbar from "../Navbar/Navbar";
@@ -11,18 +11,10 @@ import videoBanner from "../../assets/images/header.mp4";
 import videoLoading from "../../assets/images/loading.mp4";
 import left from '../../assets/images/left.svg';
 import right from '../../assets/images/right.svg';
-import one from '../../assets/images/diario/1.png';
-import two from '../../assets/images/diario/2.png';
-import three from '../../assets/images/diario/3.png';
-import four from '../../assets/images/diario/4.png';
-import five from '../../assets/images/diario/5.png';
-import six from '../../assets/images/diario/6.png';
-import seven from '../../assets/images/diario/7.png';
-import eight from '../../assets/images/diario/8.png';
-import nine from '../../assets/images/diario/9.png';
-import ten from '../../assets/images/diario/10.png';
-import eleven from '../../assets/images/diario/11.png';
-import twelve from '../../assets/images/diario/12.png';
+import ReactPlayer from 'react-player';
+
+import {useMediaQuery} from "react-responsive";
+import TextLoop from "react-text-loop";
 
 import Slider from "react-slick";
 
@@ -35,137 +27,146 @@ const settings = {
     adaptiveHeight: true
 };
 
+const servicesList = [
+'Branding', 
+'Perfomance', 
+'Creacion de contenido', 
+'Campañas 360',
+'Diseño',
+'Redes sociales',
+'Estrategia',
+'Creatividad',
+'Web'
+]
+
 const Home = () => {
 
     const state = useSelector((state) => state.general);
    	const dispatch = useDispatch();
+	const isMobile = useMediaQuery({ query: "(max-width: 991px)" });
 
  	useEffect(() => {
+  		dispatch(getPosts())
         setTimeout(() => {
 			dispatch(setLoading())
         }, 5000);
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-	console.log(state);
+	const renderPerfomance = () => {
+		if(isMobile) {
+			return (
+				<div className={styles.perfomanceContainerMobile}>
+					<div className={styles.textContainer}>
+						<div className={styles.text}>
+							<TextLoop children={servicesList} interval={1500}/>
+						</div>
+					</div>
+				</div>
+			)
+		} else {
+			return (
+				<>
+					<div className={styles.perfomanceContainer}>
+						<div className={styles.dialogBox}>
+							<img src={left} alt="left"/>
+							<div className={styles.textContainer}>
+								<p className={styles.text}>Branding</p>
+							</div>
+							
+						</div>
+						<div className={styles.dialogBox}>
+							<img src={right} alt="right"/>
+							<div className={styles.textContainer}>
+								<p className={styles.text}>Perfomance</p>
+							</div>
+						</div>
+						<div className={styles.dialogBox}>
+							<img src={left} alt="left"/>
+							<div className={styles.textContainer}>
+								<p className={styles.text}>Creacion de contenido</p>
+							</div>
+						</div>
+						<div className={styles.dialogBox}>
+							<img src={right} alt="right"/>
+							<div className={styles.textContainer}>
+								<p className={styles.text}>Campañas 360</p>
+							</div>
+						</div>
+						<div className={styles.dialogBox}>
+							<img src={left} alt="left"/>
+							<div className={styles.textContainer}>
+								<p className={styles.text}>Diseño</p>
+							</div>
+						</div>
+					</div>
+					<div className={`${styles.perfomanceContainer} ${styles.two}`}>
+						<div className={styles.dialogBox}>
+							<img src={left} alt="left"/>
+							<div className={styles.textContainer}>
+								<p className={styles.text}>Redes sociales</p>
+							</div>
+						</div>
+						<div className={styles.dialogBox}>
+							<img src={right} alt="right"/>
+							<div className={styles.textContainer}>
+								<p className={styles.text}>Estrategia</p>
+							</div>
+						</div>
+						<div className={styles.dialogBox}>
+							<img src={left} alt="left"/>
+							<div className={styles.textContainer}>
+								<p className={styles.text}>Creatividad</p>
+							</div>
+						</div>
+						<div className={styles.dialogBox}>
+							<img src={right} alt="right"/>
+							<div className={styles.textContainer}>
+								<p className={styles.text}>Web</p>
+							</div>
+						</div>
+					</div>
+				</>
+			)
+		}
+	}
 
     return (
         <div className={(state.loading) ? styles.loadingContainer : styles.container}>
-			{(state.loading) &&
-				<div className={styles.videoContainer}>
-					<video autoPlay muted loop>
-						<source src={videoLoading} type="video/mp4"/>
-						<source src={videoLoading} type="video/ogg"/>
-						Your browser does not support the video tag.
-					</video>
-				</div>
-			}
-			
-			<Navbar/>
-			<video controls autoPlay muted loop>
-				<source src={videoBanner} type="video/mp4"/>
-				<source src={videoBanner} type="video/ogg"/>
-				Your browser does not support the video tag.
-			</video>
-			<Casos/>
-			<div className={`${styles.perfomanceContainer}`}>
-				<div className={styles.dialogBox}>
-					<img src={left} alt="left"/>
-					<div className={styles.textContainer}>
-						<p className={styles.text}>Branding</p>
-					</div>
-					
-				</div>
-				<div className={styles.dialogBox}>
-					<img src={right} alt="right"/>
-					<div className={styles.textContainer}>
-						<p className={styles.text}>Perfomance</p>
-					</div>
-				</div>
-				<div className={styles.dialogBox}>
-					<img src={left} alt="left"/>
-					<div className={styles.textContainer}>
-						<p className={styles.text}>Creacion de contenido</p>
-					</div>
-				</div>
-				<div className={styles.dialogBox}>
-					<img src={right} alt="right"/>
-					<div className={styles.textContainer}>
-						<p className={styles.text}>Campañas 360</p>
-					</div>
-				</div>
-				<div className={styles.dialogBox}>
-					<img src={left} alt="left"/>
-					<div className={styles.textContainer}>
-						<p className={styles.text}>Diseño</p>
-					</div>
-				</div>
+		{(state.loading) ?
+			(<div className={styles.videoContainer}>
+				<video autoPlay muted loop>
+					<source src={videoLoading} type="video/mp4"/>
+					<source src={videoLoading} type="video/ogg"/>
+					Your browser does not support the video tag.
+				</video>
 			</div>
-			<div className={`${styles.perfomanceContainer} ${styles.two}`}>
-				<div className={styles.dialogBox}>
-					<img src={left} alt="left"/>
-					<div className={styles.textContainer}>
-						<p className={styles.text}>Redes sociales</p>
+			) : (
+				<div>
+					<Navbar/>
+					<ReactPlayer
+						className={styles.reactPlayer}
+						url={videoBanner}
+						playing
+						loop
+						muted
+					/>
+					<Casos/>
+					{renderPerfomance()}
+					<div className={styles.sliderContainer}>
+						<Slider {...settings}>
+							{state.posts.map((value, index) => {
+								return (
+									<div key={index}>
+										<a href={value.link} target="_blank" rel="noreferrer">
+											<img src={value.thumbnail} alt={value.title}/>
+										</a>
+									</div>
+								)
+							})}
+						</Slider>
 					</div>
 				</div>
-				<div className={styles.dialogBox}>
-					<img src={right} alt="right"/>
-					<div className={styles.textContainer}>
-						<p className={styles.text}>Estrategia</p>
-					</div>
-				</div>
-				<div className={styles.dialogBox}>
-					<img src={left} alt="left"/>
-					<div className={styles.textContainer}>
-						<p className={styles.text}>Creatividad</p>
-					</div>
-				</div>
-				<div className={styles.dialogBox}>
-					<img src={right} alt="right"/>
-					<div className={styles.textContainer}>
-						<p className={styles.text}>Web</p>
-					</div>
-				</div>
-			</div>
-			<div className={styles.sliderContainer}>
-				<Slider {...settings}>
-					<div>
-						<img src={one} alt="one"/>
-					</div>
-					<div>
-						<img src={two} alt="two"/>
-					</div>
-					<div>
-						<img src={three} alt="three"/>
-					</div>
-					<div>
-						<img src={four} alt="four"/>
-					</div>
-					<div>
-						<img src={five} alt="five"/>
-					</div>
-					<div>
-						<img src={six} alt="six"/>
-					</div>
-					<div>
-						<img src={seven} alt="seven"/>
-					</div>
-					<div>
-						<img src={eight} alt="eight"/>
-					</div>
-					<div>
-						<img src={nine} alt="nine"/>
-					</div>
-					<div>
-						<img src={ten} alt="ten"/>
-					</div>
-					<div>
-						<img src={eleven} alt="eleven"/>
-					</div>
-					<div>
-						<img src={twelve} alt="twelve"/>
-					</div>
-				</Slider>
-			</div>
+			)}
         </div>
     );
 };

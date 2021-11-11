@@ -1,14 +1,23 @@
 .container {
 	.row {
 		display: flex;
-		width: 100%;
+		justify-content: space-between;
 		margin-top: -5px;
-		
+
 		.imageContainer {
+			cursor: pointer;
+			margin-top: 0;
 			img {
 				width: 100%;
 				height: auto;
 			}
+			@media only screen and (max-width: 591px) {
+				margin-top: -5px;
+			}
+		}
+
+		@media only screen and (max-width: 591px) {
+			display: inline-block;
 		}
 	}
 }

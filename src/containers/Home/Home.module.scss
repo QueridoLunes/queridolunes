@@ -4,33 +4,45 @@
 	position: fixed;
 	height: 100vh;
 	width:auto;
-}
 
-.videoContainer {
-	height: 100vh;
-	width:auto;
+	.videoContainer {
+		video {
+			width: 100% !important;
+			height: auto !important;
+		}
+	}
 }
 
 .container {
 	position: relative;
 
+	.reactPlayer {
+		width: 100% !important;
+		height: auto !important;
+
+		video {
+			margin-top: 100px;
+		}
+	}
+
 	.perfomanceContainer {
 		margin-top: -5px;
 		padding-top: 1rem;
 		display: flex;
-		justify-content: space-between;
+		flex-wrap: wrap;
+		// justify-content: space-between;
 		min-height: 50px;
+		width: 100%;
 		background: $pink;
 
-		img {
-			width: 100%;
-			height: auto;
-		}
-
 		.dialogBox {
+			display: flex;
 			position:relative;
 			height: 100%;
-			min-width: 350px;
+			min-width: 20%;
+			@media only screen and (min-width: 991px)and (max-width: 1200px) {
+				max-width: 15%;
+			}
 
 			img {
 				width: 100%;
@@ -48,18 +60,47 @@
 
 				.text {
 					font-family: 'Montserrat', sans-serif;
-					font-size: 1.2rem;
+					font-size: 1rem;
 					color: $letter;
 					text-transform: uppercase;
+					@media only screen and (min-width: 991px)and (max-width: 1200px) {
+						font-size: 0.7rem;
+					}
 				}
 			}
-
-			
 		}
 	}
 
 	.two {
 		padding: 2% 10%;
+		.dialogBox {
+			min-width: 25%;
+			@media only screen and (min-width: 991px)and (max-width: 1200px) {
+				max-width: 20%;
+			}
+		}
+	}
+
+	.perfomanceContainerMobile {
+		margin-top: -5px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		min-height: 100px;
+		background: $pink;
+
+		.textContainer {
+			color: #000;
+
+			.text {
+				font-family: 'Montserrat', sans-serif;
+				font-size: 1.4rem;
+				color: #fff;
+  				text-shadow: 1.5px 1.5px rgba(0, 0, 0, 0.3);
+				text-transform: uppercase;
+			}
+
+		}
 	}
 
 	.sliderContainer {
